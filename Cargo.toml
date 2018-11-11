@@ -1,0 +1,9 @@
+[package]
+name = "hello_iron"
+version = "0.1.0"
+authors = ["elipmoc <relipmoc101@gmail.com>"]
+
+[dependencies]
+iron="0.6.0"
+router="0.6.0"
+urlencoded="0.6.0"
