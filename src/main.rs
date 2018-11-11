@@ -1,27 +1,22 @@
 extern crate iron;
+#[macro_use]
+extern crate router;
+
+mod controllers;
+mod routes;
 
 use iron::prelude::*;
-use iron::status;
-use iron::mime::*;
+use routes::create_router;
 use std::env;
 
 fn main() {
-    let port = env::var("PORT").unwrap_or("3000".to_string());
-    println!("serving on http://localhost:{}...",port);
-    Iron::new(get_hello)
-        .http(format!("0.0.0.0:{}", port))
-        .unwrap();
+   run_server();
 }
 
-fn get_hello(_request: &mut Request) -> IronResult<Response> {
-    let mut res = Response::new();
-    res.set_mut(status::Ok);
-    let mime = Mime(
-        TopLevel::Text,
-        SubLevel::Html,
-        vec![(Attr::Charset, Value::Utf8)],
-    );
-    res.set_mut(mime);
-    res.set_mut(include_str!("../hello.html"));
-    Ok(res)
+fn run_server(){
+    let port = env::var("PORT").unwrap_or("3000".to_string());
+    println!("serving on http://localhost:{}...", port);
+    Iron::new(create_router())
+        .http(format!("0.0.0.0:{}", port))
+        .unwrap();
 }
