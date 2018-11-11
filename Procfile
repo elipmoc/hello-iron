@@ -1,1 +1,1 @@
-web: PORT=$PORT ./target/release/hello-iron
+web: PORT=$PORT ./target/release/hello_iron
